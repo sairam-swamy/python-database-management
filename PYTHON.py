@@ -17,7 +17,7 @@ class Student:
         contact_no = input('Enter contact number:')
         self.mycursor.execute(f"INSERT INTO student(first_name, last_name, middle_name, feeid, courseid, contact_no) VALUES ('{first_name}','{last_name}', '{middle_name}','{feeid}','{course_id}', '{contact_no}');")
         self.mydb.commit()
-        print(mycursor.rowcount, "record inserted.")
+        print(self.mycursor.rowcount, "record inserted.")
 
     def delete(self):
         s_id = input('id of student to be deleted: ')

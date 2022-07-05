@@ -60,3 +60,19 @@ def create_pay_roll_table():
     # );
     mycursor.execute("CREATE TABLE pay_roll(pay_roll_id int primary key, staff_id int, basic_salary int not null);")
     mydb.commit()
+
+def create_fee_packages_table():
+    
+    mydb = get_mydb()
+    mycursor = mydb.cursor()
+    #create table
+
+    #Fee_packages table create
+    mycursor.execute("drop table fee_packages")
+    mydb.commit()
+    mycursor.execute('''CREATE TABLE FEE_PACKAGES(
+        FEE_ID INT PRIMARY KEY NOT NULL,
+        NAME VARCHAR(30),
+        AMOUNT INT NULL
+        )''')    
+    mydb.commit()

@@ -1,5 +1,7 @@
 from DATABASE import get_mydb
 
+## STUDENT CLASS
+
 class Student:
     mydb = None
     mycursor = None
@@ -133,7 +135,9 @@ class Pay_roll:
         self.mycursor.execute(f"UPDATE pay_roll SET basic_salary = '{basic_salary}' WHERE pay_roll_id= {id} ")
         print(self.mycursor.rowcount, "record(s) updated")
         
-        
+
+## PAYROLL CLASS
+
 class PayRollGrp2:
 
   def insert(self):
@@ -181,6 +185,8 @@ class PayRollGrp2:
     print(mycursor.rowcount, "record(s) updated")
     
   
+## SUBJECT CLASS
+
 class Subject:
 
   # insert subject names and id for a given course
@@ -223,80 +229,9 @@ class Subject:
     print(mycursor.rowcount, "record(s) updated")
     
     
-class fees:
+## ROUTINE CLASS
 
-  # insert package
-  def insert(self):
-    fee_id = input('Enter Fee ID : ')
-    name = input('Enter name of course : ')
-    amount = input('Enter amount of the course')
-
-    mycursor.execute(f"INSERT INTO fees (fee_id, name, amount) VALUES ('{fee_id}','{name}', '{amount}');")
-    mydb.commit()
-    print(mycursor.rowcount, "record inserted.")
-
-  # display package 
-  def display(self):
-    mycursor.execute(f" select * from fees;")
-    myresult = mycursor.fetchall()
-    for data in myresult:
-      print(data)
-    
-  # Search a package  
-  def search(self, fee_id):
-    mycursor.execute(f" select * from fees where fee_id = {fee_id}  ;")
-    myresult = mycursor.fetchall()
-    if len(myresult)==0:
-      print('provide a valid ID')
-    else:
-      print(myresult)
- 
-
-  # Delete a package                
-  def delete(self, fee_id):
-    mycursor.execute(f" DELETE from fees where fee_id = { fee_id } ;")
-    print(mycursor.rowcount, "record(s) deleted")
-
-  # Update a course name
-  def update(self, fee_id, name):
-    mycursor.execute(f"UPDATE fees SET name = '{name}' WHERE id= {fee_id} ")
-
-    print(mycursor.rowcount, "record(s) updated")
-
-class subjects:
-    def insert(self):
-        sub_id=input("Enter subject id")
-        sub_name=input("Enter subject name")
-        course_id=input("Enter course id")
-        mycursor.execute(f"insert into subjects(sub_id,name,course_id) values('{sub_id}','{sub_name}','{course_id}');")
-        mydb.commit()
-        print(mycursor.rowcount,"row inserted")
-
-    def display(self):
-        mycursor.execute(f" select * from subjects ;")
-        result = mycursor.fetchall()
-        for data in result:
-            print(data)
-
-    def search(self, sub_id):
-        mycursor.execute(f" select * from subjects where sub_id = {sub_id}  ;")
-        result = mycursor.fetchall()
-        if len(result) == 0:
-            print('provide a valid subject ID')
-        else:
-            print(result)
-
-    def delete(self, sub_id):
-        mycursor.execute(f" DELETE from subjects where sub_id = {sub_id} ;")
-
-        print(mycursor.rowcount, "record(s) deleted")
-
-    def update(self, sub_id, name):
-        mycursor.execute(f"UPDATE subjects SET name = '{name}' WHERE sub_id= {sub_id} ")
-
-        print(mycursor.rowcount, "records updated")
 class Routine:
-
 
   # ADD new routine record
   def insert(self):
@@ -341,6 +276,9 @@ class Routine:
     
     
     print(mycursor.rowcount, "record(s) updated")
+    
+    
+## FEE PACKAGE CLASS
  
 class fee_packages:
     mydb = None
@@ -381,6 +319,8 @@ class fee_packages:
         self.mycursor.execute(f" DELETE from fee_packages where fee_id = { id } ;")
 
         print(self.mycursor.rowcount, "record(s) deleted")
+        
+## STAFF CLASS
     
 class staff:
     def headtail(self,value):
@@ -469,6 +409,9 @@ class staff:
                     break
             else:
                 print("Invalid Choice!!")
+                
+                
+## COURSES CLASS
                 
 class Courses:
 

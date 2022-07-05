@@ -179,3 +179,86 @@ class PayRollGrp2:
     mycursor.execute(f"UPDATE pay_role_details SET basic_salary = '{basic}',gross_salary='{gross}',pf_amount='{pf}',allowence='{allowence},extra='{extra},total_amount='{total}' WHERE pay_roll_id= {id}; ")
 
     print(mycursor.rowcount, "record(s) updated")
+    
+  
+class Subject:
+
+  # insert subject names and id for a given course
+  def insert(self):
+    subject_id = input('Enter Subject ID : ')
+    name = input('Enter name of Subject : ')
+    course_id = input('Enter Course ID fot the student')
+
+    mycursor.execute(f"INSERT INTO subjects (subject_id, name, course_id) VALUES ('{subject_id}','{name}', '{course_id}');")
+    mydb.commit()
+    print(mycursor.rowcount, "record inserted.")
+
+  # display subjects in a given course 
+  def display(self):
+    mycursor.execute(f" select * from subjects ;")
+    myresult = mycursor.fetchall()
+    for data in myresult:
+      print(data)
+    
+  # Search a subject  
+
+  def search(self, id):
+    mycursor.execute(f" select * from subjects where subject_id = {id}  ;")
+    myresult = mycursor.fetchall()
+    if len(myresult)==0:
+      print('provide a valid ID')
+    else:
+      print(myresult)
+ 
+
+  # Delete a subject                
+  def delete(self, id):
+    mycursor.execute(f" DELETE from subjects where subject_id = { id } ;")
+    print(mycursor.rowcount, "record(s) deleted")
+
+  # Update a subject
+  def update(self, id, name):
+    mycursor.execute(f"UPDATE subjects SET name = '{name}' WHERE id= {id} ")
+
+    print(mycursor.rowcount, "record(s) updated")
+    
+    
+class fees:
+
+  # insert package
+  def insert(self):
+    fee_id = input('Enter Fee ID : ')
+    name = input('Enter name of course : ')
+    amount = input('Enter amount of the course')
+
+    mycursor.execute(f"INSERT INTO fees (fee_id, name, amount) VALUES ('{fee_id}','{name}', '{amount}');")
+    mydb.commit()
+    print(mycursor.rowcount, "record inserted.")
+
+  # display package 
+  def display(self):
+    mycursor.execute(f" select * from fees;")
+    myresult = mycursor.fetchall()
+    for data in myresult:
+      print(data)
+    
+  # Search a package  
+  def search(self, fee_id):
+    mycursor.execute(f" select * from fees where fee_id = {fee_id}  ;")
+    myresult = mycursor.fetchall()
+    if len(myresult)==0:
+      print('provide a valid ID')
+    else:
+      print(myresult)
+ 
+
+  # Delete a package                
+  def delete(self, fee_id):
+    mycursor.execute(f" DELETE from fees where fee_id = { fee_id } ;")
+    print(mycursor.rowcount, "record(s) deleted")
+
+  # Update a course name
+  def update(self, fee_id, name):
+    mycursor.execute(f"UPDATE fees SET name = '{name}' WHERE id= {fee_id} ")
+
+    print(mycursor.rowcount, "record(s) updated")

@@ -411,6 +411,89 @@ class staff:
                 print("Invalid Choice!!")
                 
                 
+## USER CLASS
+
+class User:
+    
+
+    def insert(self):
+        user_id = int(input('Enter User ID:'))
+        email = input('Enter Email ID:')
+        user_pass = input('Enter Password:')
+        time=input('Enter timestamp:')
+        role_id=int(input('Enter role id:'))
+        
+        mycursor.execute(f"INSERT INTO user1(user_id, email, user_pass, time, role_id) VALUES ('{user_id}','{email}', '{user_pass}','{time}','{role_id}');")
+        mydb.commit()
+        print(mycursor.rowcount, "record inserted.")
+
+    def delete(self):
+        user_id = input('id of user to be deleted: ')
+        mycursor.execute(f'Delete from user1 where user_id={user_id}')
+        mydb.commit()
+        print(f"user with id {user_id} deleted successfully!")
+
+    def update(self):
+        user_id = input('id of user: ')
+        flag=True
+        while(flag):
+            print("1) Update email  ,\n2) Update password")
+            ch = int(input("Enter choice:"))
+            if(ch==1):
+                email = input('Enter the new email: ')
+                mycursor.execute(f"UPDATE user1 SET email = '{email}' WHERE user_id= {user_id} ")
+                mydb.commit()
+            elif(ch==2):
+                user_pass = input('Enter the new password: ')
+                mycursor.execute(f"UPDATE user1 SET password = '{user_pass}' WHERE user_id= {user_id} ")
+                mydb.commit()
+            
+
+
+    def search(self):
+        user_id = int(input("Enter id of user: "))
+        mycursor.execute(f" select * from user1 where user_id = {user_id}  ;")
+        myresult =mycursor.fetchall()
+
+        if len(myresult)==0:
+            print('provide a valid ID')
+
+        else:
+            print(myresult)
+
+    def display_all(self):
+        
+        mycursor.execute(f"select * from user1;")
+        myresult = mycursor.fetchall()
+
+        for data in myresult:
+            print(data)
+
+    obj=User()
+
+    flag=True
+    try:
+        while(flag):
+            print("1) Insert  ,\n2) Delete, \n3) Update, \n4) Search, \n5)Display")
+            ch = int(input("Enter choice:"))
+            if(ch==1):
+                obj.insert()
+            elif(ch==2):
+               obj.delete()
+            elif(ch==3):
+               obj.update()
+            elif(ch==4):
+            	obj.search()
+            elif(ch==5):
+            	obj.display_all()
+            else:
+            	flag=False
+            	print("Thank You!")
+    except:
+    	print("Print valid data")
+
+                
+                
 ## COURSES CLASS
                 
 class Courses:

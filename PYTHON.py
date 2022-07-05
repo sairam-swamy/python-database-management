@@ -25,7 +25,11 @@ class Student:
         print(f"student with id {s_id} deleted successfully!")
 
     def update(self):
-        pass  
+        s_id = input('id of student: ')
+        contact_no = input('Enter the new contact number: ')
+        self.mycursor.execute(f"UPDATE student SET contact_no = '{contact_no}' WHERE id= {s_id} ")
+        self.mydb.commit()
+
 
     def search(self):
         pass

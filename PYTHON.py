@@ -27,9 +27,33 @@ class Student:
 
     def update(self):
         s_id = input('id of student: ')
-        contact_no = input('Enter the new contact number: ')
-        self.mycursor.execute(f"UPDATE student SET contact_no = '{contact_no}' WHERE id= {s_id} ")
-        self.mydb.commit()
+        flag=True
+        while(flag):
+            print("1) Update contact number ,\n2) Update first_name ,\n3) Update last_name,\n4) Update middle_name,\n5) Update course_id, \n6) End Updating")
+            ch = int(input("Enter choice:"))
+            if(ch==1):
+                contact_no = input('Enter the new contact number: ')
+                self.mycursor.execute(f"UPDATE student SET contact_no = '{contact_no}' WHERE id= {s_id} ")
+                self.mydb.commit()
+            elif(ch==2):
+                first_name = input('Enter the new first_name: ')
+                self.mycursor.execute(f"UPDATE student SET first_name = '{first_name}' WHERE id= {s_id} ")
+                self.mydb.commit()
+            elif(ch==3):
+                last_name = input('Enter the new last_name: ')
+                self.mycursor.execute(f"UPDATE student SET last_name = '{last_name}' WHERE id= {s_id} ")
+                self.mydb.commit()
+            elif(ch==4):
+                middle_name = input('Enter the new middle_name: ')
+                self.mycursor.execute(f"UPDATE student SET middle_name = '{middle_name}' WHERE id= {s_id} ")
+                self.mydb.commit()
+            elif(ch==5):
+                course_id = input('Enter the new course_id: ')
+                self.mycursor.execute(f"UPDATE student SET course_id = '{course_id}' WHERE id= {s_id} ")
+                self.mydb.commit()
+            elif(ch==6):
+                flag=False
+                print("Thank You !")
 
 
     def search(self):

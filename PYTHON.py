@@ -295,5 +295,51 @@ class subjects:
         mycursor.execute(f"UPDATE subjects SET name = '{name}' WHERE sub_id= {sub_id} ")
 
         print(mycursor.rowcount, "records updated")
+class Routine:
 
+
+  # ADD new routine record
+  def insert(self):
+    routine_id = int(input('Enter Routine name:'))
+    course_id = int(input("Enter the Course ID:") )
+    subject_id = int(input("Enter the subject ID:")) 
+    staff_id = int(input("Enter the staff ID:") )
+    start_time = input("Enter the starting time of the routine:") 
+    day_name = input("Enter the day at which routine is done :") 
+    end_time = input("Enter the ending time of the routine:") 
+    mycursor.execute(f"insert into routine (routine_id,course_id,subject_id,staff_id,start_time,day_name,end_time) VALUES ('{routine_id}','{course_id}','{subject_id}','{staff_id}','{start_time}','{day_name}','{end_time}');")
+    mydb.commit()
+    print(mycursor.rowcount, "record inserted.")
+
+  # display routine record
+  def display(self):
+    mycursor.execute(f" select * from routine ;")
+    res = mycursor.fetchall()
+    for i in res:
+      print(i)
+    
+  # Search Function  
+  def search(self, id):
+    mycursor.execute(f" select * from routine where routine_id = {id}  ;")
+    res = mycursor.fetchall()
+    if len(res)==0:
+      print('provide a valid ID')
+    else:
+      print(res)
+ 
+
+  # Delete Function                
+  def delete(self, id):
+    mycursor.execute(f" delete from routine where routine_id = { id } ;")
+
+    print(mycursor.rowcount, "record(s) deleted")
+
+
+  # Update Function
+  def update(self, id,staff_id):
+    mycursor.execute(f"update routine set  staff_id= '{staff_id}' where routine_id= {id} ; ")
+    
+    
+    print(mycursor.rowcount, "record(s) updated")
+    
 

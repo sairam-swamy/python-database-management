@@ -132,3 +132,50 @@ class Pay_roll:
     def update_salary(self, id, basic_salary):
         self.mycursor.execute(f"UPDATE pay_roll SET basic_salary = '{basic_salary}' WHERE pay_roll_id= {id} ")
         print(self.mycursor.rowcount, "record(s) updated")
+        
+        
+class PayRollGrp2:
+
+  def insert(self):
+    pay_id = input('Enter pay roll name:')
+    staff_id = input('Enter staff Id:')
+    basic = input('Enter basic salary:')
+    gross = input('Enter gross salary:')
+    pf = input('Enter pf amount:')
+    allowence = input('Enter allowence amount:')
+    extra = input('Enter extras amount:')
+    total = input('Enter total package amount:')
+
+    mycursor.execute(f"INSERT INTO pay_role_details VALUES ('{pay_id}','{staff_id}', '{basic}','{gross}','{pf}', '{allowence}','{extra}','{total}');")
+    mydb.commit()
+    print(mycursor.rowcount, "record inserted.")
+
+  # display student 
+  def display(self):
+    mycursor.execute(f"select * from pay_role_details ;")
+    myresult = mycursor.fetchall()
+    for data in myresult:
+      print(data)
+    
+  # Search Function  
+  def search(self, id):
+    mycursor.execute(f" select * from pay_role_details where pay_roll_id = {id}  ;")
+    myresult = mycursor.fetchall()
+    if len(myresult)==0:
+      print('provide a valid ID')
+    else:
+      print(myresult)
+ 
+
+  # Delete Function                
+  def delete(self, id):
+    mycursor.execute(f" DELETE from pay_role_details where pay_roll_id = { id } ;")
+
+    print(mycursor.rowcount, "record(s) deleted")
+
+
+  # Update Function
+  def update(self, id, basic,gross,pf,allowence,extra,total):
+    mycursor.execute(f"UPDATE pay_role_details SET basic_salary = '{basic}',gross_salary='{gross}',pf_amount='{pf}',allowence='{allowence},extra='{extra},total_amount='{total}' WHERE pay_roll_id= {id}; ")
+
+    print(mycursor.rowcount, "record(s) updated")

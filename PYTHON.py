@@ -341,5 +341,45 @@ class Routine:
     
     
     print(mycursor.rowcount, "record(s) updated")
+ 
+class fee_packages:
+    mydb = None
+    mycursor = None
+    def __init__(self) -> None:
+        
+        self.mydb = get_mydb()
+        self.mycursor = self.mydb.cursor()
+
+    def insert(self):
+        fee_id = input('Enter Fees Id:')
+        name = input('Enter name of this fee package:')
+
+        amount = input('Enter amount for this fee package:')
+        self.mycursor.execute(f"INSERT INTO fee_packages (fee_id, name, amount) VALUES ('{fee_id}','{name}', '{amount}');")
+        self.mydb.commit()
+        print(self.mycursor.rowcount, "record inserted.")
+
+    # display package 
+    def display(self):
+        self.mycursor.execute(f" select * from fee_packages ;")
+        myresult = self.mycursor.fetchall()
+        for data in myresult:
+            print(data)
+    
+    # Search Package 
+    def search(self, id):
+        self.mycursor.execute(f" select * from fee_packages where fee_id = {id}  ;")
+        myresult = self.mycursor.fetchall()
+        if len(myresult)==0:
+            print('provide a valid ID')
+        else:
+            print(myresult)
+ 
+
+    # Delete Package                
+    def delete(self, id):
+        self.mycursor.execute(f" DELETE from fee_packages where fee_id = { id } ;")
+
+        print(self.mycursor.rowcount, "record(s) deleted")
     
 

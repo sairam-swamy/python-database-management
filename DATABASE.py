@@ -35,3 +35,28 @@ def create_table():
 
     # note - create role table before user table
     # mycursor.execute('CREATE TABLE `user`(user_id int auto_increment primary key, username varchar(16) not null, email varchar(255) not null, `password` varchar(32) not null, create_time timestamp not null DEFAULT CURRENT_TIMESTAMP, role_id int not null, foreign key (role_id) references `role`(role_id));')
+
+def create_pay_roll_table():
+    
+    mydb = get_mydb()
+    mycursor = mydb.cursor()
+    #create table
+
+    #Pay roll table create
+    #TODO update query with foreign keys
+    mycursor.execute("drop table pay_roll")
+    mydb.commit()
+
+    # Table for reference
+    # create table pay_roll (
+    #     pay_roll_id int primary key,
+    #     staff_id int,
+    #     basic_salary int not null,
+    #     -- gross_salary int,
+    #     -- pf_amount int,
+    #     -- allowance int,
+    #     -- extras int,
+    #     -- total_pay int
+    # );
+    mycursor.execute("CREATE TABLE pay_roll(pay_roll_id int primary key, staff_id int, basic_salary int not null);")
+    mydb.commit()

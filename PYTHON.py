@@ -469,3 +469,40 @@ class staff:
                     break
             else:
                 print("Invalid Choice!!")
+                
+class Courses:
+
+    # insert course id and name
+    def insert(self):
+        course_id = input('Enter Course ID : ')
+        name = input('Enter Name of the Course : ')
+        mycursor.execute(f"INSERT INTO courses (course_id, name) VALUES ('{course_id}','{name}');")
+        mydb.commit()
+        print(mycursor.rowcount, "Record(s) inserted.")
+
+    # display all courses
+    def display(self):
+        mycursor.execute(f" select * from courses ;")
+        myresult = mycursor.fetchall()
+        for data in myresult:
+            print(data)
+
+    # Search for a course
+    def search(self, id):
+        mycursor.execute(f" select * from courses where course_id = {id}  ;")
+        myresult = mycursor.fetchall()
+        if len(myresult) == 0:
+            print('Provide a Valid Course ID!')
+        else:
+            print(myresult)
+
+    # Delete a course
+    def delete(self, id):
+        mycursor.execute(f" DELETE from courses where course_id = {id} ;")
+        print(mycursor.rowcount, "Record(s) deleted")
+
+    # Update a course
+    def update(self, id, name):
+        mycursor.execute(f"UPDATE courses SET name = '{name}' WHERE course_id= {id} ")
+
+        print(mycursor.rowcount, "Record(s) updated")

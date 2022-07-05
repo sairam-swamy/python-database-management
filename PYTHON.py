@@ -262,3 +262,67 @@ class fees:
     mycursor.execute(f"UPDATE fees SET name = '{name}' WHERE id= {fee_id} ")
 
     print(mycursor.rowcount, "record(s) updated")
+
+class subjects:
+    def insert(self):
+        sub_id=input("Enter subject id")
+        sub_name=input("Enter subject name")
+        course_id=input("Enter course id")
+        mycursor.execute(f"insert into subjects(sub_id,name,course_id) values('{sub_id}','{sub_name}','{course_id}');")
+        mydb.commit()
+        print(mycursor.rowcount,"row inserted")
+
+    def display(self):
+        mycursor.execute(f" select * from subjects ;")
+        result = mycursor.fetchall()
+        for data in result:
+            print(data)
+
+    def search(self, sub_id):
+        mycursor.execute(f" select * from subjects where sub_id = {sub_id}  ;")
+        result = mycursor.fetchall()
+        if len(result) == 0:
+            print('provide a valid subject ID')
+        else:
+            print(result)
+
+    def delete(self, sub_id):
+        mycursor.execute(f" DELETE from subjects where sub_id = {sub_id} ;")
+
+        print(mycursor.rowcount, "record(s) deleted")
+
+    def update(self, sub_id, name):
+        mycursor.execute(f"UPDATE subjects SET name = '{name}' WHERE sub_id= {sub_id} ")
+
+        print(mycursor.rowcount, "records updated")
+
+
+obj = subjects()
+while True:
+    print(
+        "1) ADD new subject,\n2) List all subjects ,\n3) find subject record,\n4) delete subject record,\n5) update subject record\n6)EXIT")
+
+    ch = int(input("Enter choice:"))
+    if (ch == 1):
+        obj.insert()
+
+    elif (ch == 2):
+        print("\n")
+        print("\nList of Subjects\n")
+        obj.display()
+
+    elif (ch == 3):
+        obj.search(int(input('Enter subject ID :')))
+        # obj.display(list1[s])
+
+    elif (ch == 4):
+        obj.delete(int(input('Enter subject ID :')))
+
+
+    elif (ch == 5):
+        obj.update(int(input('Enter subject ID :')), input('Enter subject name:'))
+
+
+    else:
+        print("Thank You !")
+        break

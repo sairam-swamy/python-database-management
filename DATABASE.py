@@ -14,19 +14,24 @@ def get_mydb():
     )
     return mydb
 
-mycursor = get_mydb().cursor()
 
 
 # create database
 # mycursor.execute('create database student')
 # mycursor.execute('show databases')
 
+def create_table():
+    
+    mydb = get_mydb()
+    mycursor = mydb.cursor()
+    #create table
 
-#create table
+    #Student table create
+    #TODO update query with foreign keys when user, course, fee table are created
+    mycursor.execute("drop table student")
+    mydb.commit()
+    mycursor.execute("CREATE TABLE student(id INT AUTO_INCREMENT PRIMARY KEY,userid varchar(10), first_name varchar(20),last_name varchar(20),middle_name varchar(20),feeid varchar(10),courseid varchar(10),contact_no varchar(20))")
+    mydb.commit()
 
-#Student table create
-#TODO update query with foreign keys when user, course, fee table are created
-mycursor.execute("CREATE TABLE student(id INT AUTO_INCREMENT PRIMARY KEY,userid varchar(10), first_name varchar(20),last_name varchar(20),middle_name varchar(20),feeid varchar(10),courseid varchar(10),contact_no INT)")
-
-# note - create role table before user table
-mycursor.execute('CREATE TABLE `user`(user_id int auto_increment primary key, email varchar(255) not null, `password` varchar(32) not null, create_time timestamp not null DEFAULT CURRENT_TIMESTAMP, role_id int not null, foreign key (role_id) references `role`(role_id));')
+    # note - create role table before user table
+    # mycursor.execute('CREATE TABLE `user`(user_id int auto_increment primary key, email varchar(255) not null, `password` varchar(32) not null, create_time timestamp not null DEFAULT CURRENT_TIMESTAMP, role_id int not null, foreign key (role_id) references `role`(role_id));')

@@ -15,7 +15,7 @@ class Student:
         course_id = int(input('Enter course id:'))
         feeid = int(input('Enter fees ID:'))
         contact_no = input('Enter contact number:')
-        self.mycursor.execute(f"INSERT INTO student ,first_name, last_name, middle_name, feeid, courseid, contact_no) VALUES ('{first_name}','{last_name}', '{middle_name}','{feeid}','{course_id}', '{contact_no}');")
+        self.mycursor.execute(f"INSERT INTO student(first_name, last_name, middle_name, feeid, courseid, contact_no) VALUES ('{first_name}','{last_name}', '{middle_name}','{feeid}','{course_id}', '{contact_no}');")
         self.mydb.commit()
 
     def delete(self):
@@ -26,3 +26,9 @@ class Student:
 
     def update(self):
         pass  
+
+    def search(self):
+        pass
+
+    def display(self, ob):
+        pass

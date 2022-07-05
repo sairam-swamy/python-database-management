@@ -297,32 +297,3 @@ class subjects:
         print(mycursor.rowcount, "records updated")
 
 
-obj = subjects()
-while True:
-    print(
-        "1) ADD new subject,\n2) List all subjects ,\n3) find subject record,\n4) delete subject record,\n5) update subject record\n6)EXIT")
-
-    ch = int(input("Enter choice:"))
-    if (ch == 1):
-        obj.insert()
-
-    elif (ch == 2):
-        print("\n")
-        print("\nList of Subjects\n")
-        obj.display()
-
-    elif (ch == 3):
-        obj.search(int(input('Enter subject ID :')))
-        # obj.display(list1[s])
-
-    elif (ch == 4):
-        obj.delete(int(input('Enter subject ID :')))
-
-
-    elif (ch == 5):
-        obj.update(int(input('Enter subject ID :')), input('Enter subject name:'))
-
-
-    else:
-        print("Thank You !")
-        break

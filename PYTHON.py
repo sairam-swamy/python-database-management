@@ -383,3 +383,97 @@ class fee_packages:
         print(self.mycursor.rowcount, "record(s) deleted")
     
 
+class fee_packages:
+
+
+  # ADD new fee package
+  def insert(self):
+    fee_id = input('Enter Fees Id:')
+    name = input('Enter name of this fee package:')
+
+    amount = input('Enter amount for this fee package:')
+    mycursor.execute(f"INSERT INTO fee_packages (fee_id, name, amount) VALUES ('{fee_id}','{name}','{amount}');")
+    mydb.commit()
+    print(mycursor.rowcount, "record inserted.")
+
+  # display package 
+  def display(self):
+    mycursor.execute(f" select * from fee_packages ;")
+    myresult = mycursor.fetchall()
+    for data in myresult:
+      print(data)
+    
+  # Search Package 
+  def search(self, id):
+    mycursor.execute(f" select * from fee_packages where fee_id = {id}  ;")
+    myresult = mycursor.fetchall()
+    if len(myresult)==0:
+      print('provide a valid ID')
+    else:
+      print(myresult)
+ 
+
+  # Delete Package                
+  def delete(self, id):
+    mycursor.execute(f" DELETE from fee_packages where fee_id = { id } ;")
+    mydb.commit()
+    print(mycursor.rowcount, "record(s) deleted")
+
+    
+    
+# an object of fee_packages class
+obj = fee_packages()
+flag =True
+try:
+    while flag:
+        #check whether user is staff or student 
+        print("Enter staff/student/close")
+        userid = input("Enter your user id:")
+
+        #if user is staff or ( if  userid in staff table )
+        if (userid=='staff'):
+            print("1) Enter new package,\n2) List all packages ,\n3) find package,\n4) delete fee package")
+
+            ch = int(input("Enter choice:"))
+            if(ch == 1):
+                obj.insert()
+                    
+            elif(ch == 2):
+                print("\n")
+                print("\nList of packages\n")  
+                obj.display()
+                        
+            elif(ch == 3):
+                obj.search(int(input('Enter fee ID no:')))
+                # obj.display(list1[s])
+                        
+            elif(ch == 4):
+                obj.delete(int(input('Enter fee ID no:')))
+
+                        
+            else:
+                flag=False
+                print("Thank You !")
+
+        #if user is student or (userid in student table )
+        elif (userid =='student'):
+
+            s_id = input('Enter your fee ID:')
+            
+
+            mycursor.execute(f" select * from fee_packages where fee_id = {s_id}  ;")
+            myresult = mycursor.fetchall()
+            if len(myresult)==0:
+                print('No DATA Found')
+            else:
+                print('Here are your fee details:')
+                print(myresult) 
+        elif (userid == "close"):
+            flag=False
+
+        #if user is neither staff nor student
+        else:
+            print('Please enter valid user id!')
+
+except:
+    print('provide a valid data')         

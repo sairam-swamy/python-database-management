@@ -28,7 +28,31 @@ class Student:
         pass  
 
     def search(self):
-        pass
+        id = int(input("Enter id of student: "))
+        self.mycursor.execute(f" select * from student where id = {id}  ;")
+        myresult = self.mycursor.fetchall()
 
-    def display(self, ob):
-        pass
+        if len(myresult)==0:
+            print('provide a valid ID')
+
+        else:
+            print(myresult)
+
+    def display_all(self):
+        
+        self.mycursor.execute(f"select * from student ;")
+        myresult = self.mycursor.fetchall()
+
+        for data in myresult:
+            print(data)
+    
+    def search_by_name(self):
+        name = input("Enter first name of student: ")
+        self.mycursor.execute(f"select * from student where first_name='{name}';")
+        myresult = self.mycursor.fetchall()
+
+        if len(myresult)==0:
+            print('provide a valid name')
+
+        else:
+            print(myresult)

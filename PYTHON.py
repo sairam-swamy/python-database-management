@@ -382,98 +382,90 @@ class fee_packages:
 
         print(self.mycursor.rowcount, "record(s) deleted")
     
+class staff:
+    def headtail(self,value):
+        print("========== "+value+" ==========")
+        
+    def staffMain(self):
+#         mydb = mysql.connector.connect(  #local connectivity creadentials
+#                 host="localhost",
+#                 user="root",
+#                 password="1234",
+#                 database="school"
+#         )
+#         myc = mydb.cursor()
 
-class fee_packages:
-
-
-  # ADD new fee package
-  def insert(self):
-    fee_id = input('Enter Fees Id:')
-    name = input('Enter name of this fee package:')
-
-    amount = input('Enter amount for this fee package:')
-    mycursor.execute(f"INSERT INTO fee_packages (fee_id, name, amount) VALUES ('{fee_id}','{name}','{amount}');")
-    mydb.commit()
-    print(mycursor.rowcount, "record inserted.")
-
-  # display package 
-  def display(self):
-    mycursor.execute(f" select * from fee_packages ;")
-    myresult = mycursor.fetchall()
-    for data in myresult:
-      print(data)
-    
-  # Search Package 
-  def search(self, id):
-    mycursor.execute(f" select * from fee_packages where fee_id = {id}  ;")
-    myresult = mycursor.fetchall()
-    if len(myresult)==0:
-      print('provide a valid ID')
-    else:
-      print(myresult)
- 
-
-  # Delete Package                
-  def delete(self, id):
-    mycursor.execute(f" DELETE from fee_packages where fee_id = { id } ;")
-    mydb.commit()
-    print(mycursor.rowcount, "record(s) deleted")
-
-    
-    
-# an object of fee_packages class
-obj = fee_packages()
-flag =True
-try:
-    while flag:
-        #check whether user is staff or student 
-        print("Enter staff/student/close")
-        userid = input("Enter your user id:")
-
-        #if user is staff or ( if  userid in staff table )
-        if (userid=='staff'):
-            print("1) Enter new package,\n2) List all packages ,\n3) find package,\n4) delete fee package")
-
-            ch = int(input("Enter choice:"))
-            if(ch == 1):
-                obj.insert()
-                    
-            elif(ch == 2):
-                print("\n")
-                print("\nList of packages\n")  
-                obj.display()
-                        
-            elif(ch == 3):
-                obj.search(int(input('Enter fee ID no:')))
-                # obj.display(list1[s])
-                        
-            elif(ch == 4):
-                obj.delete(int(input('Enter fee ID no:')))
-
-                        
-            else:
-                flag=False
-                print("Thank You !")
-
-        #if user is student or (userid in student table )
-        elif (userid =='student'):
-
-            s_id = input('Enter your fee ID:')
+        userid = 1002  # user_id will be directly iniate here after successfull user login
+        while True:
+            flag=True
+            choice=int(input("1.View Profile\n2.Update\n3.Request to PayRoll Sheet\n4.Exit\n"))
+            print("You choose: "+str(choice)+"\n")
             
+            if choice==1:   #read
+                myc.execute("select first_name, middle_name, last_name, payroll_id, contact_no from staff where userid="+str(userid)+"")
+                res = myc.fetchall()
+                headtail("Personal Details")
+                for x in res:
+                    print("First Name: "+x[0])
+                    print("Middle Name: "+x[1])
+                    print("Last Name: "+x[2])
+                    print("Contact No: "+str(x[4]))
+                    print("Payroll Id: "+str(x[3]))
+                headtail("XXXX")
 
-            mycursor.execute(f" select * from fee_packages where fee_id = {s_id}  ;")
-            myresult = mycursor.fetchall()
-            if len(myresult)==0:
-                print('No DATA Found')
+            elif choice==2: #update
+                headtail("Update Details")
+                ch=int(input("1.Change first_name\n2.Change middle_name\n3.Change last_name\n4.Change contact no\n5.None\n"))
+                print("You choose: "+str(ch)+"\n")
+                val = ""
+                if ch!=5:
+                    val = input("Enter here: ")
+                sub = ""
+
+                if ch==1:
+                    sub = "first_name='"+val+"'"
+                elif ch==2:
+                    sub = "middle_name='"+val+"'"
+                elif ch==3:
+                    sub = "last_name='"+val+"'"
+                elif ch==4:
+                    sub = "contact_no="+val+""
+                elif ch==5:
+                    flag=False
+                    headtail("OOPS! SOMETHING WENT WRONG")
+                    headtail("XXXX")
+                else:
+                    flag=False
+                    print("Invalid Choice!!")
+                    headtail("XXXX")
+                    
+                if flag:
+                    sql = "UPDATE staff SET "+str(sub)+" WHERE userid="+str(userid)+""
+                    myc.execute(sql)
+                    mydb.commit()
+                    headtail("Data Updated Successfully!")
+                    headtail("XXXX")
+                    
+            elif choice==3:  #subquery read operation
+                headtail("REQ PROCESSING....")
+                # Subquery for data retrieval
+                sql = "select id,userid,basic_sal,gross_sal,pf_amount,allowence,total_pay from pr where id in (select payroll_id from staff where userid="+str(userid)+")"
+                myc.execute(sql)
+                res = myc.fetchall()
+                headtail("PayRoll Sheet")
+                for x in res:
+                    print("Payroll Id: "+str(x[0]))
+                    print("User Id: "+str(x[1]))
+                    print("Basic Salary: "+str(x[2]))
+                    print("Gross Salary: "+str(x[3]))
+                    print("PF amount: "+str(x[4]))
+                    print("Total Pay: "+str(x[6]))
+                headtail("XXXX")
+                
+            elif choice==4: #exit code
+                ex = input("Are you sure? y/n: ")
+                if ex == "y" or ex=="yes":
+                    print("bye bye :)")
+                    break
             else:
-                print('Here are your fee details:')
-                print(myresult) 
-        elif (userid == "close"):
-            flag=False
-
-        #if user is neither staff nor student
-        else:
-            print('Please enter valid user id!')
-
-except:
-    print('provide a valid data')         
+                print("Invalid Choice!!")

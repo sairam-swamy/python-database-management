@@ -34,4 +34,4 @@ def create_table():
     mydb.commit()
 
     # note - create role table before user table
-    # mycursor.execute('CREATE TABLE `user`(user_id int auto_increment primary key, email varchar(255) not null, `password` varchar(32) not null, create_time timestamp not null DEFAULT CURRENT_TIMESTAMP, role_id int not null, foreign key (role_id) references `role`(role_id));')
+    # mycursor.execute('CREATE TABLE `user`(user_id int auto_increment primary key, username varchar(16) not null, email varchar(255) not null, `password` varchar(32) not null, create_time timestamp not null DEFAULT CURRENT_TIMESTAMP, role_id int not null, foreign key (role_id) references `role`(role_id));')

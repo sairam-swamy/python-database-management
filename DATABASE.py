@@ -4,21 +4,27 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
-mydb = mysql.connector.connect(
-  host=os.getenv("host"),
-  user=os.getenv("user"),
-  password=os.getenv("password"),
-  database=os.getenv("database"),
-)
-mycursor = mydb.cursor()
+def get_mydb():  
+    
+    mydb = mysql.connector.connect(
+    host=os.getenv("host"),
+    user=os.getenv("user"),
+    password=os.getenv("password"),
+    database=os.getenv("database"),
+    )
+    return mydb
+
+mycursor = get_mydb().cursor()
+
+
 # create database
 # mycursor.execute('create database student')
 # mycursor.execute('show databases')
 
+
 #create table
 
 #Student table create
-
 #TODO update query with foreign keys when user, course, fee table are created
 mycursor.execute("CREATE TABLE student(id INT AUTO_INCREMENT PRIMARY KEY,userid varchar(10), first_name varchar(20),last_name varchar(20),middle_name varchar(20),feeid varchar(10),courseid varchar(10),contact_no INT)")
 
